@@ -24,3 +24,19 @@
 @import "@ionic/angular/css/text-alignment.css";
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
+
+ion-modal#confirm-modal {
+  --width: fit-content;
+  --min-width: 250px;
+  --height: fit-content;
+  --border-radius: 6px;
+  --box-shadow: 0 10px 10px rgba(0, 0, 0, 0.4);
+}
+
+ion-modal#confirm-modal h1 {
+  margin: 20px 20px 10px 20px;
+}
+
+ion-modal#confirm-modal .wrapper {
+  margin-bottom: 10px;
+}

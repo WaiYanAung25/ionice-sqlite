@@ -1,0 +1,130 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title slot="start" *ngIf="!employe">Add new employee </ion-title>
+    <ion-title slot="start" *ngIf="employe"
+      >Update employee {{ employe?.name }}</ion-title
+    >
+    <!-- <ion-button slot="end" (click)="dissmissModal()"> x </ion-button> -->
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
+    <ion-row>
+      <ion-col size="12" size-sm="6">
+        <ion-item>
+          <ion-label position="floating">Name</ion-label>
+          <ion-input
+            formControlName="name"
+            type="text"
+            required="true"
+          ></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col size="12" size-sm="6">
+        <ion-item>
+          <ion-select
+            formControlName="department"
+            label="department"
+            required="true"
+            placeholder="department"
+          >
+            <ion-select-option value="finance">finance</ion-select-option>
+            <ion-select-option value="develop">develop</ion-select-option>
+            <ion-select-option value="creative">creative</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12" size-sm="6">
+        <ion-item>
+          <label>Choose Birthdate</label>
+          <!-- <ion-label position="floating">Choose Birthdate</ion-label> -->
+
+          <input matInput [matDatepicker]="dp" formControlName="dob" />
+          <mat-datepicker-toggle
+            matIconSuffix
+            [for]="dp"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #dp></mat-datepicker>
+        </ion-item>
+      </ion-col>
+      <ion-col size="12" size-sm="6">
+        <ion-item>
+          <ion-select
+            formControlName="position"
+            label="position"
+            required="true"
+            placeholder="position"
+          >
+            <ion-select-option value="developer">developer</ion-select-option>
+            <ion-select-option value="designer">designer</ion-select-option>
+            <ion-select-option value="hr">hr</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12" size-sm="6">
+        <ion-item>
+          <ion-label position="floating">salary:</ion-label>
+          <ion-input
+            formControlName="salary"
+            type="text"
+            appFormateNumber
+          ></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col size="12" size-sm="6">
+        <ion-item>
+          <ion-label position="floating">nric:</ion-label>
+          <ion-input formControlName="nric" type="text"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12" size-sm="6"> </ion-col>
+      <ion-col size="12" size-sm="6">
+        <ion-row>
+          <ion-button expand="full" class="cancel" (click)="dissmissModal()"
+            >cancel</ion-button
+          >
+          <ion-button
+            expand="full"
+            type="submit"
+            *ngIf="!employe"
+            [disabled]="employeeForm.invalid"
+            >Save</ion-button
+          >
+          <ion-button
+            expand="full"
+            type="submit"
+            *ngIf="employe"
+            [disabled]="employeeForm.invalid"
+            >Update</ion-button
+          >
+        </ion-row>
+      </ion-col>
+    </ion-row>
+  </form>
+
+  <ion-modal
+    id="confirm-modal"
+    [isOpen]="isSuccessModalOpen"
+    backdropDismiss="{false}"
+    (didDismiss)="isSuccessModalOpen = false"
+  >
+    <div class="wrapper">
+      <ng-template>
+        <div style="padding: 10px; display: flex; flex-direction: column">
+          <h1 *ngIf="!employe?.id">Success</h1>
+          <h1 *ngIf="employe?.id">Update</h1>
+          <p *ngIf="!employe?.id">the record was saved</p>
+          <p *ngIf="employe?.id">the record was updated</p>
+
+          <ion-button (click)="closeDialog()">Ok</ion-button>
+        </div>
+      </ng-template>
+    </div>
+  </ion-modal>
+</ion-content>
